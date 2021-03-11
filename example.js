@@ -1,10 +1,11 @@
+
 function fetchgit(){
-    const requestToken ="e7f4bcd14db694aea8631a79c30f9eb524fe6c52" ;
+    const requestToken ="15f3bec0fa7e01fb035206f4f82b64fb4935747c" ;
     console.log('authorization code:', requestToken);
     const clientID = '7e015d8ce32370079895'
     const clientSecret = '2b976af0e6b6ceea2b1554aa31d1fe94ea692cd9'
   
-    const accessToken = JSON.parse(JSON.stringify("e7f4bcd14db694aea8631a79c30f9eb524fe6c52"))
+    const accessToken = JSON.parse(JSON.stringify("15f3bec0fa7e01fb035206f4f82b64fb4935747c"))
     console.log(`access token: ${accessToken}`);
     let headers = new Headers();
 
@@ -24,10 +25,13 @@ function fetchgit(){
     .then(json => console.log(json)); 
   
    fetch("https://api.github.com/user/repos/",{
-   mode:"cors",
-   method:"GET"
+  
+   method:"GET",
+   mode:"no-cors",
+   credentials:"include"
    ,headers: {
-      'Accept': 'application/json',
+  
+    'Accept': 'application/json',
       'Authentication':`Bearer ${accessToken}`,
   
       
