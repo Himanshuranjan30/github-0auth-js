@@ -1,14 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JSON Test</title>
+  </head>
+  <body>
+    <div id="myData"></div>
+    <script>
+      const requestToken = "b02f3440b7da7d943d97ac4d70ac8113aad17873";
+      console.log("authorization code:", requestToken);
+      const clientID = "7e015d8ce32370079895";
+      const clientSecret = "2b976af0e6b6ceea2b1554aa31d1fe94ea692cd9";
 
-<head>
-    <meta charset="utf-8"/>
-    <title>js</title>
-    
-</head>
-<body>
-    <div id="app"></div>
-    
-</body>
-<script src="example.js"></script>
+      const accessToken = JSON.parse(
+        JSON.stringify("b02f3440b7da7d943d97ac4d70ac8113aad17873")
+      );
+      console.log(`access token: ${accessToken}`);
+
+      fetch(
+        "https://github.com/login/oauth/access_token?" +
+          `client_id=${clientID}&` +
+          `client_secret=${clientSecret}&` +
+          `code=${requestToken}`,
+        {
+          method: "POST",
+          mode: "no-cors",
+        }
+      ).then((json) => console.log(json));
+
+      fetch("https://api.github.com/users/himanshuranjan30/repos", {
+        method: "GET",
+
+        headers: {
+          Accept: "application/json",
+        },
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          appendData(data);
+        });
+      function appendData(data) {
+        var mainContainer = document.getElementById("myData");
+        for (var i = 0; i < data.length; i++) {
+          var div = document.createElement("div");
+          div.innerHTML = "Name: " + data[i].name;
+          mainContainer.appendChild(div);
+        }
+      }
+    </script>
+  </body>
 </html>
